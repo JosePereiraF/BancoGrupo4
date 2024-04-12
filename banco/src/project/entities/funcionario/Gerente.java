@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import project.enums.CargoENUM;
 
 public class Gerente extends Funcionario{
-
+	//criar um
 	public Gerente(String nome, String cpf, String senha, LocalDate dataNascimento, CargoENUM cargo) {
 		super(nome, cpf, senha, dataNascimento, cargo);
 	}

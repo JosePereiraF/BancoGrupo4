@@ -1,13 +1,17 @@
 package project.entities.funcionario;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 import project.entities.Pessoa;
 import project.enums.CargoENUM;
 
 public abstract class Funcionario extends Pessoa{
 	protected CargoENUM cargo;
-
+	//criar um HashMap de funcionario onde nele sera armazenados todos os tipos de funcionarios independente do cargo
+	
+	protected HashMap<String,Funcionario> lista_funcionario = new HashMap<>();
+	
 	public Funcionario(String nome, String cpf, String senha, LocalDate dataNascimento, CargoENUM cargo) {
 		super(nome, cpf, senha, dataNascimento);
 		this.cargo = cargo;

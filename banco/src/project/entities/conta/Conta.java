@@ -10,6 +10,7 @@ public abstract class Conta {
 	protected TipoContaENUM tipoConta;
 	protected double saldo;
 	protected LocalDate dataCriacao;
+	protected int numeroAgencia;
 	
 	public Conta(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao) {
 		super();

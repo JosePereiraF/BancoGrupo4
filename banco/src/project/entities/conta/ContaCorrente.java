@@ -1,7 +1,9 @@
 package project.entities.conta;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import project.enums.TipoContaENUM;
@@ -35,6 +37,20 @@ public class ContaCorrente extends Conta{
 		acho que seria ninteressante apenas criarmos 
 		* Seria viável colocar o HashMap na classe Conta?
 		*/ 
+		//metodo para gerar numeros da conta
+		//metodo para verificar se os numeros estao validos
+//		boolean numeroDiferente= false;
+//		
+//		while(numeroDiferente == false) {
+//			verificaConta(numerogerado)
+//		}
+//		for(int i - 0 ; i<numeros_gerados.size();i++) {
+//			if(numeros_gerados.get(i).getNumeros.equals(geradoAgora)) {
+//				
+//			}
+//		}
+//			
+//		List<String> numeros_gerados = new ArrayList<>();
 		
 		Random random = new Random();
 		int numeroDaContaGerado = random.nextInt(20);
