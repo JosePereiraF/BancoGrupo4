@@ -1,6 +1,5 @@
 package project.entities.funcionario;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 
 import project.entities.Pessoa;
@@ -12,8 +11,8 @@ public abstract class Funcionario extends Pessoa{
 	
 	protected HashMap<String,Funcionario> lista_funcionario = new HashMap<>();
 	
-	public Funcionario(String nome, String cpf, String senha, LocalDate dataNascimento, CargoENUM cargo) {
-		super(nome, cpf, senha, dataNascimento);
+	public Funcionario(String nome, String cpf, String senha,  CargoENUM cargo) {
+		super(nome, cpf, senha);
 		this.cargo = cargo;
 	}
 

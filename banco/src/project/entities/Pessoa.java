@@ -7,12 +7,12 @@ public abstract class Pessoa {
 	protected String cpf;
 	protected String senha;
 	protected LocalDate dataNascimento;
-	public Pessoa(String nome, String cpf, String senha, LocalDate dataNascimento) {
+	public Pessoa(String nome, String cpf, String senha) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
-		this.dataNascimento = dataNascimento;
+		
 	}
 	public String getNome() {
 		return nome;
@@ -32,12 +32,7 @@ public abstract class Pessoa {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+	
 	
 	@Override
 	public String toString() {
