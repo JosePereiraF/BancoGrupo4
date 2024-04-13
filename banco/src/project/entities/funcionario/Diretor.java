@@ -41,8 +41,8 @@ public class Diretor extends Funcionario{
 	public void cadastra_cargo(String cargo) {
 		
 	}
-	public LocalDate data_convertida(String data_nascimento) {
-		
-	}
+//	public LocalDate data_convertida(String data_nascimento) {
+//		
+//	}
 	
 }

@@ -9,13 +9,14 @@ import java.util.Random;
 import project.enums.TipoContaENUM;
 
 public class ContaCorrente extends Conta{
-
-	public HashMap<String,ContaCorrente>  lista_contaCorrente = new HashMap();
 	
 	public ContaCorrente(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao) {
 		super(cpf, numeroDaConta, tipoConta, saldo, dataCriacao);
 	}
 
+	public ContaCorrente() {
+		super();
+	}
 	@Override
 	public String toString() {
 		return "ContaCorrente [cpf=" + cpf + ", numeroDaConta=" + numeroDaConta + ", tipoConta=" + tipoConta
@@ -60,7 +61,7 @@ public class ContaCorrente extends Conta{
 		
 		
 		ContaCorrente contaCorrente = new ContaCorrente(key,numeroDaContaGerado,TipoContaENUM.CONTACORRENTE,0.0,diaCriacao);
-		lista_contaCorrente.put(key, contaCorrente);
+		listaConta.put(key, contaCorrente);
 	}
 
 	
