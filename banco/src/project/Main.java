@@ -1,10 +1,6 @@
 package project;
 
-import java.util.Scanner;
-
-import project.entities.Endereco;
-import project.entities.conta.Conta;
-import project.entities.conta.ContaCorrente;
+import project.entities.agencia.Agencia;
 
 public class Main {
 
@@ -22,11 +18,17 @@ public class Main {
 //	    System.out.println(endereco.lista_endereco.get(cpf2));
 
 	    // Fechando o Scanner após as operações de entrada/saída estarem concluídas
-		Conta conta = new ContaCorrente();
+		//Conta conta = new ContaCorrente();
 	   
-		conta.criarConta(cpf1);
+		//conta.criarConta(cpf1);
 		
-		System.out.println(Conta.listaConta.get(cpf1));
+		//System.out.println(Conta.listaConta.get(cpf1));
+		
+		Agencia agencia = new Agencia();
+		
+		agencia.criaAgencia();
+		
+		agencia.consultarAgencias();
 		
 	}
 
