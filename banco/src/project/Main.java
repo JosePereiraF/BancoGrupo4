@@ -1,6 +1,6 @@
 package project;
 
-import project.entities.agencia.Agencia;
+import project.funcionalidades.Menu;
 
 public class Main {
 
@@ -24,11 +24,8 @@ public class Main {
 		
 		//System.out.println(Conta.listaConta.get(cpf1));
 		
-		Agencia agencia = new Agencia();
-		
-		agencia.criaAgencia();
-		
-		agencia.consultarAgencias();
+		Menu menu = new Menu();
+		menu.menu();
 		
 	}
 
