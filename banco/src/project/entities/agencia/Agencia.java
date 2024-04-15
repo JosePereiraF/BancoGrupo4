@@ -8,6 +8,7 @@ public class Agencia {
 	private int numeroAgencia;
 	
 	public HashMap<Integer,Agencia> Lista_Agencias = new HashMap<>();
+	Scanner sc = new Scanner(System.in);
 	
 	public Agencia(String nome, int numeroAgencia) {
 		super();
@@ -31,13 +32,12 @@ public class Agencia {
 	public int getNumeroAgencia() {
 		return numeroAgencia;
 	}
-
-
-
-	public String toString(String key) {
+	
+	@Override
+	public String toString() {
 		return "Agencia [nome=" + nome + ", numeroAgencia=" + numeroAgencia + "]";
 	}
-	
+
 	//nesse caso, não vai ter uma key pois ela em sí vai ser usado como chave.
 	public void criaAgencia() {
 		int nAgencia;
@@ -45,17 +45,14 @@ public class Agencia {
 		
 		while (true) {
 			System.out.println("Digite o numero da agência  que deseja criar: ");
-			Scanner scint = new Scanner(System.in);
-			nAgencia = scint.nextInt();
-			scint.close();
+			nAgencia = sc.nextInt();
 			
 			if (Lista_Agencias.containsKey(nAgencia)) {
 				System.out.println("O número de Agência informado já é registrado.");
 			} else {
+				sc.nextLine();
 				System.out.println("Digite o nome da agência: ");
-				Scanner sc = new Scanner(System.in);
 				nomeDigitado = sc.nextLine();
-				sc.close();
 			
 				Agencia agencia = new Agencia(nomeDigitado, nAgencia);
 				Lista_Agencias.put(nAgencia, agencia);
