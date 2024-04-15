@@ -12,7 +12,7 @@ public class Cliente extends Pessoa{
 	//adcionar os clientes criados dentro do hashmap
 	
 	Scanner sc = new Scanner(System.in);
-	HashMap<String, Cliente>lista_cliente = new HashMap<>();
+	public static HashMap<String, Cliente>lista_cliente = new HashMap<>();
 	public Cliente(String nome, String cpf, String senha,String numeroAgencia) {
 		super(nome, cpf, senha );
 		this.numeroAgencia = numeroAgencia;
