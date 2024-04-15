@@ -19,51 +19,67 @@ public class Menu {
 		String cpf;
 		String cpf2="234";
 		int numero = conta.gerarNumeroDaConta();
+		int numero2 = conta.gerarNumeroDaConta();
+
 		
 		System.out.println("Digite um cpf");
 		cpf = sc.nextLine();
 		//String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao
 		ContaCorrente conta = new ContaCorrente(cpf, numero, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now());
-		ContaCorrente conta2 = new ContaCorrente(cpf2, numero, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now());
+		ContaCorrente conta2 = new ContaCorrente(cpf2, numero2, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now());
 		System.out.println(conta);
 		System.out.println("Você criou a conta com sucesso");
 		Conta.listaConta.put(cpf, conta);
 		Conta.listaConta.put(cpf2, conta2);
 		while(sair !=2) {
 			
-			System.out.println("1 para ir para o menu 2 para sair");
+			System.out.println("Digite: \n1 - Acessar o menu \n2 - Sair");
 			sair=scint.nextInt();
 			
 			if(sair == 1) {
 				
 				do {
-					System.out.println("Digite 1 para criar a conta.\n2-para fazer deposito\n3- para fazer saque\n4-para fazer transferencia.\n5- para extrato\n6- para informações da conta");
+					System.out.println("Digite: \n1 - Criar conta \n2 - Depósito\n3 - Saque "
+							+ "\n4 - Transferência \n5 - Extrato \n6 - Informações da conta");
 					escolha= scint.nextInt();
-					switch (escolha) {
+					switch (escolha) {// TODO Fazer um System.out.println("1 - Desejo prosseguir \n2 - Sair"); criar um switch para voltar
+
 					case 1: 
 						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Criar Conta\"");
 						
 						conta.criarConta(cpf);
 						break;
 					case 2:
 						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Depósito\"");
 						
 						ex.deposito(conta);
 						break;
 					case 3:
 						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Saque\"");
 						
 						 ex.saque(conta);
 						
 						break;
 					case 4:
-
+						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Transferência\"");
+						
 						ex.transferencia(conta, conta2);
 						break;
 					case 5:
+						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Extrato\"");
+						
 						ex.mostrar_extrato(conta);
 						break;
 					case 6:
+						System.out.println();
+						System.out.println("\nVocê selecionou a opção \"Informações da conta\"");
+						
+						
 						System.out.println("Digite o cpf do titular da conta para aparecer as informações");
 						cpf = sc.nextLine();
 						System.out.println(Conta.listaConta.get(cpf));
