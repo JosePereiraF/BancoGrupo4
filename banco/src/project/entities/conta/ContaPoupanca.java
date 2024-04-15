@@ -6,8 +6,8 @@ import project.enums.TipoContaENUM;
 
 public class ContaPoupanca extends Conta{
 
-	public ContaPoupanca(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao) {
-		super(cpf, numeroDaConta, tipoConta, saldo, dataCriacao);
+	public ContaPoupanca(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao, int numeroAgencia) {
+		super(cpf, numeroDaConta, tipoConta, saldo, dataCriacao, numeroAgencia);
 	}
 
 	@Override

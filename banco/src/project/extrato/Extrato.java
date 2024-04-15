@@ -2,27 +2,17 @@ package project.extrato;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
+import project.entities.cliente.Cliente;
 import project.entities.conta.Conta;
 
 public class Extrato { //Sugestão: Mudar o nome da classe
-	private String cpf;
-	private ArrayList<Saque> saques;
-	private Deposito depositos;
-	private ArrayList<Transferencia> transferencias;
-	
-	
-	public static HashMap<String, Extrato> lista_extrato = new HashMap<>();
+
+	Cliente cliente;
 	public static ArrayList<Deposito> lista_depositos = new ArrayList<>();
 	public static ArrayList<Saque> lista_saques = new ArrayList<>();
 	public static ArrayList<Transferencia> lista_transferencia = new ArrayList<>();
-	//TODO montar uma lista de saques depositos e transferencias e criar um metodo que cria o hashmap depois que a pessoa pedir o extrato
-	
-	
-	
-	
 	
 	
 	//possivel problema como estamos trabalhando com um txt e estou pretendendo nao salvar o arquivo
@@ -31,121 +21,70 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	// quando a conta for criada
 	
 	
-
-	public Extrato(String cpf, ArrayList<Saque> saques, Deposito depositos, ArrayList<Transferencia> transferencias) {
-		super();
-		this.cpf = cpf;
-		this.saques = saques;
-		this.depositos = depositos;
-		this.transferencias = transferencias;
-	}
-	public Extrato() {
-		super();
-	}
-
-
-
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public ArrayList<Saque> getSaques() {
-		return saques;
-	}
-
-	public void setSaques(ArrayList<Saque> saques) {
-		this.saques = saques;
-	}
-
-	
-
-	public Deposito getDepositos() {
-		return depositos;
-	}
-
-	public void setDepositos(Deposito depositos) {
-		this.depositos = depositos;
-	}
-
-	public ArrayList<Transferencia> getTransferencias() {
-		return transferencias;
-	}
-
-	public void setTransferencias(ArrayList<Transferencia> transferencias) {
-		this.transferencias = transferencias;
-	}
-
-	public HashMap<String, Extrato> getLista_extrato() {
-		return lista_extrato;
-	}
-
-	public void setLista_extrato(HashMap<String, Extrato> lista_extrato) {
-		this.lista_extrato = lista_extrato;
-	}
-	
-
-	@Override
-	public String toString() {
-		return "Extrato [cpf=" + cpf + ", saques=" + saques + ", depositos=" + depositos + ", transferencias="
-				+ transferencias + ", lista_extrato=" + lista_extrato + "]";
-	}
-
-//	public void cria_extrato(Conta conta) {
-//		ArrayList<Saque> saques = new ArrayList<>();
-//		Deposito depositos = new Deposito();
-//		ArrayList<Transferencia> transferencias = new ArrayList<>();
-//		Deposito d = new Deposito(conta,50.00,LocalDateTime.now(),conta.getCpf());
-//		
-//		lista_depositos.add(depositos);
-//		
-//	}
 	
 	public void saque(Conta conta) {
 		double valor;
 		double taxa = 0.10;
 		Scanner sc = new Scanner(System.in);
-		Extrato ex = lista_extrato.get(conta.getCpf());
+		
 		
 		System.out.println("O seu saldo é:\t\t R$"+conta.getSaldo());
-		System.out.println("A cada Saque será descontada uma taxa de R$0,10");
+		System.out.println("A cada Saque será descontada uma taxa de R$"+taxa);
 		System.out.println("\nDigite o valor que você deseja sacar");
 		valor = sc.nextDouble();
-		System.out.println("Valor do saque:\t\t R$" + valor +"\nValor da taxa:\t\t R$" + taxa 
+
+		if(conta.getSaldo()<valor+taxa) {
+			
+			if((conta.getSaldo()+200)>valor+taxa) {
+
+				System.err.println("Saldo insuficiente você deseja usar o cheque especial de até 200 reais? S/N" );
+				String escolha = sc.next();
+				
+				if(escolha.equalsIgnoreCase("s")) {
+					System.out.println("Valor do saque:\t\t R$" + valor +"\nValor da taxa:\t\t R$" + taxa 
 				+ "\nValor sacado:\t\t R$"+(valor-taxa));
 		
-		Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
-		lista_saques.add(saque);
-		conta.setSaldo(conta.getSaldo()-(valor+taxa));
-		System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
-		System.out.println("Ação realizada com sucesso\n");
-
+				Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
+				lista_saques.add(saque);
+				conta.setSaldo(conta.getSaldo()-(valor+taxa));
+				System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
+				System.out.println("Ação realizada com sucesso\n");
+					
+				}else {
+					System.out.println("Transação cancelada");
+					
+				}
+				
+			}else {
+				System.err.println("Saldo insuficiente para realizar a operação");
+				
+			}
+		}else {
+			System.out.println("Valor do saque:\t\t R$" + valor +"\nValor da taxa:\t\t R$" + taxa 
+				+ "\nValor sacado:\t\t R$"+(valor-taxa));
+		
+			Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
+			lista_saques.add(saque);
+			conta.setSaldo(conta.getSaldo()-(valor+taxa));
+			System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
+			System.out.println("Ação realizada com sucesso\n");
+		}
 		
 	}
 	public void deposito(Conta conta) {
 		
 		double valor;
 		double taxa = 0.10;
-		Scanner sc = new Scanner(System.in);
-		Extrato ex = lista_extrato.get(conta.getCpf());
-				
-		System.out.println(lista_extrato.get(conta.getCpf())); //TODO está retornando NULL
+		Scanner sc = new Scanner(System.in);	
 		
-		
-		
-		System.out.println("A cada depósito será descontada uma taxa de R$0,10");
+		System.out.println("A cada depósito será descontada uma taxa de R$"+taxa);
 		System.out.println("\nDigite o valor que você deseja despositar:");
 		valor = sc.nextDouble();
 		System.out.println("Valor do depósito:\t R$" + valor +"\nValor da taxa:\t\t R$" + taxa 
 				+ "\nValor depositado:\t R$"+(valor-taxa));
 		Deposito d = new Deposito(conta,(valor-taxa),LocalDateTime.now(),conta.getCpf(),taxa);
-		//ex.getDepositos().add(d);
 		conta.setSaldo(conta.getSaldo()+(valor-taxa));
-		lista_depositos.add(d);//funcionou
+		lista_depositos.add(d);
 		System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 		System.out.println("Ação realizada com sucesso\n");
 
@@ -153,19 +92,57 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	public void transferencia(Conta contaOrigem ,Conta contaDestino ) {
 		double valor;
-		int tentativa=0; // Isso está sendo usado?
 		Scanner sc = new Scanner(System.in);
 		double taxa = 0.20;
 	
 		System.out.println("Seu saldo é \t\t R$" + contaOrigem.getSaldo()); 
 		System.out.println("A cada transferência será descontado uma taxa de R$0,20.");	
-		System.out.println("Digite o valor que você deseja trasnferir");
+		System.out.println("Digite o valor que você deseja transferir");
 		valor = sc.nextDouble();
-		// System.out.println("Digite o número da conta que deseja tranferir"); TODO
-//		String origem, String destino, double valor, LocalDateTime hora, String cpf
+
 		
-		
-		Transferencia origem = new Transferencia(contaOrigem.getNumeroDaConta(),contaDestino.getNumeroDaConta(),-valor,LocalDateTime.now(),contaOrigem.getCpf(),taxa);
+
+		if(contaOrigem.getSaldo()<valor+taxa) {
+			if((contaOrigem.getSaldo()+200)> valor+taxa) {
+				System.err.println("Saldo insuficiente você deseja usar o cheque especial de até 200 reais? S/N" );
+				String escolha = sc.next();
+				if(escolha.equalsIgnoreCase("s")) {
+					
+					Transferencia origem = new Transferencia(contaOrigem.getNumeroDaConta(),contaDestino.getNumeroDaConta(),-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
+					Transferencia destino = new Transferencia(contaDestino.getNumeroDaConta(),contaOrigem.getNumeroDaConta(),+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
+					lista_transferencia.add(origem);
+					lista_transferencia.add(destino);
+					contaOrigem.setSaldo(contaOrigem.getSaldo()-(valor+taxa));
+					contaDestino.setSaldo(contaDestino.getSaldo()+valor);
+					
+					System.out.println("Ação realizada com sucesso");
+					System.out.println("Dados do pagador \n");
+					System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
+					System.out.println("CPF: " + contaOrigem.getCpf());
+					System.out.println("Agência: "+ contaOrigem.getNumeroAgencia());//Inserir Agência
+					System.out.println("Tipo de conta: " + contaOrigem.getTipoConta().name());		
+					System.out.println("Número da conta: " + contaOrigem.getNumeroDaConta() + "\n");		
+					
+					System.out.println("Dados do recebedor \n");
+					System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
+					System.out.println("CPF: " + contaDestino.getCpf());
+					System.out.println("Agência: "+contaDestino.getNumeroAgencia());//Inserir Agência	
+					System.out.println("Tipo de conta: " + contaDestino.getTipoConta().name());		
+					System.out.println("Número da conta: " + contaDestino.getNumeroDaConta() + "\n");
+					
+					System.out.println("Valor da tranferêcia: \t\t R$" + (valor + taxa));
+					System.out.println("Valor da taxa: \t\t\t R$" + taxa);
+					System.out.println("Valor Transferido: \t\t R$" + (valor));
+					
+				}else {
+					System.out.println("Transação cancelada");
+				}
+			}else {
+				System.err.println("Saldo insuficiente para realizar a operação");
+			}
+		}else {
+			
+		Transferencia origem = new Transferencia(contaOrigem.getNumeroDaConta(),contaDestino.getNumeroDaConta(),-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
 		Transferencia destino = new Transferencia(contaDestino.getNumeroDaConta(),contaOrigem.getNumeroDaConta(),+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
 		lista_transferencia.add(origem);
 		lista_transferencia.add(destino);
@@ -174,22 +151,27 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		
 		System.out.println("Ação realizada com sucesso");
 		System.out.println("Dados do pagador \n");
-		System.out.println("Nome: ");//Inserir nome 
+		System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
 		System.out.println("CPF: " + contaOrigem.getCpf());
-		System.out.println("Agência: ");//Inserir Agência
-		System.out.println("Tipo de conta: " + contaOrigem.getTipoConta());		
+		System.out.println("Agência: "+ contaOrigem.getNumeroAgencia());//Inserir Agência
+		System.out.println("Tipo de conta: " + contaOrigem.getTipoConta().name());		
 		System.out.println("Número da conta: " + contaOrigem.getNumeroDaConta() + "\n");		
 		
 		System.out.println("Dados do recebedor \n");
-		System.out.println("Nome: ");//Inserir nome 
+		System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
 		System.out.println("CPF: " + contaDestino.getCpf());
-		System.out.println("Agência: ");//Inserir Agência	
-		System.out.println("Tipo de conta: " + contaDestino.getTipoConta());		
+		System.out.println("Agência: "+contaDestino.getNumeroAgencia());//Inserir Agência	
+		System.out.println("Tipo de conta: " + contaDestino.getTipoConta().name());		
 		System.out.println("Número da conta: " + contaDestino.getNumeroDaConta() + "\n");
 		
 		System.out.println("Valor da tranferêcia: \t\t R$" + (valor + taxa));
 		System.out.println("Valor da taxa: \t\t\t R$" + taxa);
-		System.out.println("Valor Transferido: \t\t R$" + (valor - taxa));
+		System.out.println("Valor Transferido: \t\t R$" + (valor));
+
+
+
+		}
+
 	}
 	public void mostrar_extrato(Conta conta) {
 		

@@ -15,11 +15,20 @@ public abstract class Conta {
 	protected LocalDate dataCriacao;
 	protected int numeroAgencia;
 
+	public int getNumeroAgencia() {
+		return numeroAgencia;
+	}
+
+	public void setNumeroAgencia(int numeroAgencia) {
+		this.numeroAgencia = numeroAgencia;
+	}
+
 	public static HashMap<String, Conta> listaConta = new HashMap<>();
 
 	public int gerarNumeroDaConta() {
 		int numeroDaConta = 0;
 		boolean criacao = false;
+		
 		do {
 			Random random = new Random();
 			int numeroGerado = random.nextInt();
@@ -45,7 +54,7 @@ public abstract class Conta {
 	public void criarConta(String cpf) { //Truncar o numeroDaConta pra String
 		Scanner sc = new Scanner(System.in);
 		TipoContaENUM tipo = null;
-
+		int numeroAgencia = 0;
 		do {
 			System.out.println("Insira que tipo de conta você deseja criar: \n1-Conta Corrente \n2-Conta Poupança");
 
@@ -71,24 +80,25 @@ public abstract class Conta {
 		int NumeroDaContaGerado = gerarNumeroDaConta();
 		if (tipo == TipoContaENUM.CONTACORRENTE) {
 
-			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao);
+			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao,numeroAgencia);
 			System.out.println("Você criou a conta com sucesso");
 			listaConta.put(cpf, conta);
 		}
 		if (tipo == TipoContaENUM.CONTAPOUPANCA) {
-			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao);
+			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao,numeroAgencia);
 			System.out.println("Você criou a conta com sucesso");
 			listaConta.put(cpf, conta);
 		}
 	}
 
-	public Conta(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao) {
+	public Conta(String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao, int numeroAgencia) {
 		super();
 		this.cpf = cpf;
 		this.numeroDaConta = numeroDaConta;
 		this.tipoConta = tipoConta;
 		this.saldo = saldo;
 		this.dataCriacao = dataCriacao;
+		this.numeroAgencia = numeroAgencia;
 	}
 
 	public Conta() {

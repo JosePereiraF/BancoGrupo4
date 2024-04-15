@@ -20,13 +20,13 @@ public class Menu {
 		String cpf2="234";
 		int numero = conta.gerarNumeroDaConta();
 		int numero2 = conta.gerarNumeroDaConta();
-
+		int numeroAgencia = 0;
 		
 		System.out.println("Digite um cpf");
 		cpf = sc.nextLine();
 		//String cpf, int numeroDaConta, TipoContaENUM tipoConta, double saldo, LocalDate dataCriacao
-		ContaCorrente conta = new ContaCorrente(cpf, numero, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now());
-		ContaCorrente conta2 = new ContaCorrente(cpf2, numero2, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now());
+		ContaCorrente conta = new ContaCorrente(cpf, numero, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now(),numeroAgencia);
+		ContaCorrente conta2 = new ContaCorrente(cpf2, numero2, TipoContaENUM.CONTAPOUPANCA, 0.0, LocalDate.now(),numeroAgencia);
 		System.out.println(conta);
 		System.out.println("Você criou a conta com sucesso");
 		Conta.listaConta.put(cpf, conta);
