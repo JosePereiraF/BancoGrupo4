@@ -10,8 +10,9 @@ public class Presidente extends Funcionario{
 
 	@Override
 	public String toString() {
-		return "Presidente [cargo=" + cargo + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha
-				+ ", dataNascimento=" + dataNascimento + "]";
+		return "Presidente [cargo=" + cargo + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + "]";
 	}
+
+	
 
 }

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import project.entities.conta.Conta;
 import project.entities.conta.ContaCorrente;
 import project.enums.TipoContaENUM;
+import project.excecoes.ExcecaoTransferencias;
 import project.extrato.Extrato;
 
 public class Menu {
@@ -54,20 +55,35 @@ public class Menu {
 						System.out.println();
 						System.out.println("\nVocê selecionou a opção \"Depósito\"");
 						
-						ex.deposito(conta);
+						try {
+							ex.deposito(conta);
+							 
+						 }catch (ExcecaoTransferencias e) {
+							System.err.println("\n"+e.getMessage()+"\n");
+						}
 						break;
 					case 3:
 						System.out.println();
 						System.out.println("\nVocê selecionou a opção \"Saque\"");
 						
-						 ex.saque(conta);
+						 try {
+							 ex.saque(conta);
+							 
+						 }catch (ExcecaoTransferencias e) {
+							System.err.println("\n"+e.getMessage()+"\n");
+						}
 						
 						break;
 					case 4:
 						System.out.println();
 						System.out.println("\nVocê selecionou a opção \"Transferência\"");
 						
-						ex.transferencia(conta, conta2);
+						try {
+							ex.transferencia(conta, conta2);
+							 
+						 }catch (ExcecaoTransferencias e) {
+							System.err.println("\n"+e.getMessage()+"\n");
+						}
 						break;
 					case 5:
 						System.out.println();
@@ -84,11 +100,16 @@ public class Menu {
 						cpf = sc.nextLine();
 						System.out.println(Conta.listaConta.get(cpf));
 						break;
+					case 7:
+						System.out.println("\nOpção para verificar o total arrecadado.");
+						ex.totalArrecadado();
+						
 					}
 					
 					
-				}while(escolha != 7);
+				}while(escolha != 8);
 			}
 		}
 	}
+	
 }
