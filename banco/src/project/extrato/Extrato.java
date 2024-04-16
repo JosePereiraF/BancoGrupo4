@@ -225,7 +225,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		double taxaTransferencia = taxaSaque + taxaDeposito;
 		double arrecadSaque = lista_saques.size()*taxaSaque;
 		double arrecadDeposito = lista_depositos.size()*taxaDeposito;
-		double arrecadTransferencia = lista_transferencia.size()*taxaTransferencia;
+		double arrecadTransferencia = lista_transferencia.size()/2*taxaTransferencia;
 		double total = arrecadSaque + arrecadDeposito + arrecadTransferencia;
 
 		NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
