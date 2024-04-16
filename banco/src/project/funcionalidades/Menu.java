@@ -1,5 +1,6 @@
 package project.funcionalidades;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class Menu {
 	Scanner scint = new Scanner(System.in);
 	Conta conta = new ContaCorrente();
 	Extrato ex = new Extrato();
-	public void menu() {
+	public void menu() throws IOException {
 		int sair= 0;
 		int escolha = 0;
 		String cpf;
@@ -49,7 +50,7 @@ public class Menu {
 						System.out.println();
 						System.out.println("\nVocê selecionou a opção \"Criar Conta\"");
 						
-						conta.criarConta(cpf);
+						Conta.criarConta(cpf);
 						break;
 					case 2:
 						System.out.println();

@@ -1,17 +1,27 @@
 package project;
 
-import project.funcionalidades.Menu;
+import java.io.IOException;
+
+import project.entities.cliente.Cliente;
+import project.entities.conta.Conta;
+import project.entities.conta.ContaCorrente;
+import project.funcionalidades.InOutUtils;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+	//criar clientes e contas 
+		Cliente cliente = new Cliente();
+		Conta conta = new ContaCorrente();
 		
-		Menu m = new Menu();
-		m.menu();
-//		Funcionario f;
-//		Funcionario.criar_funcionario();
-//		
-//		System.out.println(Funcionario.lista_funcionario.get("123"));
-	}
+		InOutUtils.leitor_pessoa();
+		InOutUtils.leitor_contas();
+		
+		
+//		Conta.criarConta("15798");
+		System.out.println(Conta.listaConta.get("15798").getCpf());
+		
 
+
+	}
 }

@@ -1,9 +1,11 @@
 package project.entities.cliente;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import project.entities.Pessoa;
+import project.funcionalidades.InOutUtils;
 
 public class Cliente extends Pessoa{
 	private String numeroAgencia;
@@ -13,18 +15,25 @@ public class Cliente extends Pessoa{
 	
 	Scanner sc = new Scanner(System.in);
 	public static HashMap<String, Cliente>lista_cliente = new HashMap<>();
+	
 	public Cliente(String nome, String cpf, String senha,String numeroAgencia) {
 		super(nome, cpf, senha );
 		this.numeroAgencia = numeroAgencia;
 	}
+	public Cliente () {
+		super();
+	}
+	
 
 	@Override
 	public String toString() {
-		return "Cliente [numeroAgencia=" + numeroAgencia + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha
-				+ ", dataNascimento=" + dataNascimento + "]";
+		
+		return nome +";"+ cpf + ";"+ senha +";"+numeroAgencia;
 	}
 
-	public void criar_cliente() {
+
+
+	public void criar_cliente() throws IOException {
 		//(String nome, String cpf, String senha, LocalDate dataNascimento, String numeroAgencia) 
 		String nomeDigitado;
 		String cpfDigitado;
@@ -42,6 +51,8 @@ public class Cliente extends Pessoa{
 		
 		Cliente clinte = new Cliente(nomeDigitado,cpfDigitado,senhaDigitada,numeroAgenciaDigitada);
 		lista_cliente.put(cpfDigitado, clinte);
+		lista_pessoa.add(clinte);
+		saveTXT();
 		
 	}
 	
@@ -50,6 +61,9 @@ public class Cliente extends Pessoa{
 			return lista_cliente.get(key);
 			
 		}
-	
+	public void saveTXT() throws IOException {
+		//InOutUtils.leitor_pessoa("//home/administrador//Documents//usuarios.txt");
+		InOutUtils.escreve_pessoa(lista_pessoa);
+	}
 	
 }

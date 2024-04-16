@@ -16,8 +16,7 @@ public class ContaCorrente extends Conta{
 	}
 	@Override
 	public String toString() {
-		return "ContaCorrente [cpf=" + cpf + ", numeroDaConta=" + numeroDaConta + ", tipoConta=" + tipoConta
-				+ ", saldo=" + saldo + ", dataCriacao=" + dataCriacao + "]";
+		return cpf+ ";"+numeroDaConta+";"+tipoConta+";"+saldo+";"+dataCriacao+";"+numeroAgencia;
 	}
 	
 	
