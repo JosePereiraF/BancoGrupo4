@@ -1,17 +1,26 @@
 package project.entities;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import project.entities.cliente.Cliente;
 
 public abstract class Pessoa {
 	protected String nome;
 	protected String cpf;
 	protected String senha;
-
+	
+	public static List<Pessoa> lista_pessoa = new ArrayList<>();
+	
 	public Pessoa(String nome, String cpf, String senha) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
+		
+	}
+	public void eeee() {
+		
 		
 	}
 	public Pessoa() {
@@ -37,7 +46,8 @@ public abstract class Pessoa {
 	}
 	@Override
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + "]";
+		return nome + ";" + cpf + ";" + senha ;
+	
 	}
 	
 	

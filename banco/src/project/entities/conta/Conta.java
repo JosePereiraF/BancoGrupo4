@@ -1,11 +1,16 @@
 package project.entities.conta;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import project.entities.cliente.Cliente;
 import project.enums.TipoContaENUM;
+import project.funcionalidades.InOutUtils;
 
 public abstract class Conta {
 	protected String cpf;
@@ -17,6 +22,8 @@ public abstract class Conta {
 
 	public int getNumeroAgencia() {
 		return numeroAgencia;
+	
+	
 	}
 
 	public void setNumeroAgencia(int numeroAgencia) {
@@ -24,8 +31,9 @@ public abstract class Conta {
 	}
 
 	public static HashMap<String, Conta> listaConta = new HashMap<>();
-
-	public int gerarNumeroDaConta() {
+	public static List<Conta> lista_contas = new ArrayList<>();
+	
+	public static int gerarNumeroDaConta() {
 		int numeroDaConta = 0;
 		boolean criacao = false;
 		
@@ -42,23 +50,23 @@ public abstract class Conta {
 		return numeroDaConta;
 	}
 
-	public boolean confereNumeroDaConta(int numeroGerado) {
-		for (Conta conta : listaConta.values()) {
+	public static boolean confereNumeroDaConta(int numeroGerado) {
+		for (Conta conta : listaConta.values()) {//talvez pode modificar e ler a lista de contas que eu vou criar para usar no escritor contas
 			if (conta.getNumeroDaConta() == numeroGerado) {
+				
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void criarConta(String cpf) { //Truncar o numeroDaConta pra String
+	public static void criarConta(String cpf) throws IOException { //Truncar o numeroDaConta pra String
 		Scanner sc = new Scanner(System.in);
 		TipoContaENUM tipo = null;
 		int numeroAgencia = 0;
 		do {
 			System.out.println("Insira que tipo de conta você deseja criar: \n1-Conta Corrente \n2-Conta Poupança");
-
-			int opcao = sc.nextInt();
+			int opcao = sc.nextInt();//esta quebrando aqui quando se cria 2 contas seguidas
 
 			switch (opcao) {
 			case 1:
@@ -83,11 +91,15 @@ public abstract class Conta {
 			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao,numeroAgencia);
 			System.out.println("Você criou a conta com sucesso");
 			listaConta.put(cpf, conta);
+			lista_contas.add(conta);
+			saveTXT();
 		}
 		if (tipo == TipoContaENUM.CONTAPOUPANCA) {
 			ContaCorrente conta = new ContaCorrente(cpf, NumeroDaContaGerado, tipo, 0.0, diaCriacao,numeroAgencia);
 			System.out.println("Você criou a conta com sucesso");
 			listaConta.put(cpf, conta);
+			lista_contas.add(conta);
+			saveTXT();
 		}
 	}
 
@@ -146,8 +158,14 @@ public abstract class Conta {
 
 	@Override
 	public String toString() {
-		return "Conta [cpf=" + cpf + ", numeroDaConta=" + numeroDaConta + ", tipoConta=" + tipoConta + ", saldo="
-				+ saldo + ", dataCriacao=" + dataCriacao + "]";
+		
+		return cpf+ ";"+numeroDaConta+";"+tipoConta+";"+saldo+";"+dataCriacao+";"+numeroAgencia;
+		
+		
 	}
+	public static void saveTXT() throws IOException {
+		InOutUtils.escreve_conta(lista_contas);
+	}
+	
 
 }
