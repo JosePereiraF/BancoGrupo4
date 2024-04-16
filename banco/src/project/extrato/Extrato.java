@@ -1,7 +1,9 @@
 package project.extrato;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import project.entities.cliente.Cliente;
@@ -214,4 +216,26 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		System.out.println("Saldo: " + conta.getSaldo());
 		
 	}
+
+	//calcular o total de dinheiro adquirido nas taxas e mostrar o valor que é cobrado em cada transferencia;*
+
+	public void totalArrecadado() {
+		double taxaSaque = 0.10;
+		double taxaDeposito = 0.10;
+		double taxaTransferencia = taxaSaque + taxaDeposito;
+		double arrecadSaque = lista_saques.size()*taxaSaque;
+		double arrecadDeposito = lista_depositos.size()*taxaDeposito;
+		double arrecadTransferencia = lista_transferencia.size()*taxaTransferencia;
+		double total = arrecadSaque + arrecadDeposito + arrecadTransferencia;
+
+		NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		String saqueFormatada = formatoMoeda.format(taxaSaque);
+		String depositoFormatada = formatoMoeda.format(taxaDeposito);
+		String transferenciaFormatada = formatoMoeda.format(taxaTransferencia);
+		String totalFormatada = formatoMoeda.format(total);
+
+		System.out.println("Com as taxas de: \n" + saqueFormatada + " para saques \n" + depositoFormatada + " para Depósitos \n" + transferenciaFormatada + " para Transferências,");
+		System.out.println("\n e com: " + lista_saques.size() + " Saques, " + lista_depositos.size() + " Depositos e " +  lista_transferencia.size() + " Transferências,\n foi arrecadado o total de " + totalFormatada + " atualmente.");
+	}
 }
+
