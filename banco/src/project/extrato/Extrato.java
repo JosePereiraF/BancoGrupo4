@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import project.entities.cliente.Cliente;
 import project.entities.conta.Conta;
+import project.excecoes.ExcecaoTransferencias;
 
 public class Extrato { //Sugestão: Mudar o nome da classe
 
@@ -24,7 +25,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	
 	
-	public void saque(Conta conta) {
+	public void saque(Conta conta) throws ExcecaoTransferencias{
 		double valor;
 		double taxa = 0.10;
 		Scanner sc = new Scanner(System.in);
@@ -34,7 +35,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		System.out.println("A cada Saque será descontada uma taxa de R$"+taxa);
 		System.out.println("\nDigite o valor que você deseja sacar");
 		valor = sc.nextDouble();
-
+		if(valor<0) throw new ExcecaoTransferencias();
 		if(conta.getSaldo()<valor+taxa) {
 			
 			if((conta.getSaldo()+200)>valor+taxa) {
@@ -73,7 +74,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		}
 		
 	}
-	public void deposito(Conta conta) {
+	public void deposito(Conta conta) throws ExcecaoTransferencias{
 		
 		double valor;
 		double taxa = 0.10;
@@ -82,6 +83,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		System.out.println("A cada depósito será descontada uma taxa de R$"+taxa);
 		System.out.println("\nDigite o valor que você deseja despositar:");
 		valor = sc.nextDouble();
+		if(valor<0) throw new ExcecaoTransferencias();
 		System.out.println("Valor do depósito:\t R$" + valor +"\nValor da taxa:\t\t R$" + taxa 
 				+ "\nValor depositado:\t R$"+(valor-taxa));
 		Deposito d = new Deposito(conta,(valor-taxa),LocalDateTime.now(),conta.getCpf(),taxa);
@@ -92,7 +94,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 
 	}
 	
-	public void transferencia(Conta contaOrigem ,Conta contaDestino ) {
+	public void transferencia(Conta contaOrigem ,Conta contaDestino ) throws ExcecaoTransferencias{
 		double valor;
 		Scanner sc = new Scanner(System.in);
 		double taxa = 0.20;
@@ -101,7 +103,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		System.out.println("A cada transferência será descontado uma taxa de R$0,20.");	
 		System.out.println("Digite o valor que você deseja transferir");
 		valor = sc.nextDouble();
-
+		if(valor<0) throw new ExcecaoTransferencias();
 		
 
 		if(contaOrigem.getSaldo()<valor+taxa) {
@@ -119,7 +121,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 					
 					System.out.println("Ação realizada com sucesso");
 					System.out.println("Dados do pagador \n");
-					System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
+					//System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
 					System.out.println("CPF: " + contaOrigem.getCpf());
 					System.out.println("Agência: "+ contaOrigem.getNumeroAgencia());//Inserir Agência
 					System.out.println("Tipo de conta: " + contaOrigem.getTipoConta().name());		
@@ -153,7 +155,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		
 		System.out.println("Ação realizada com sucesso");
 		System.out.println("Dados do pagador \n");
-		System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
+		//System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
 		System.out.println("CPF: " + contaOrigem.getCpf());
 		System.out.println("Agência: "+ contaOrigem.getNumeroAgencia());//Inserir Agência
 		System.out.println("Tipo de conta: " + contaOrigem.getTipoConta().name());		
@@ -208,7 +210,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	public void saldo (Conta conta) {
 		System.out.println("-----------Saldo-----------");
 		System.out.println("Dados da conta \n");
-		System.out.println("Nome: "+Cliente.lista_cliente.get(conta.getCpf()).getNome());
+		//System.out.println("Nome: "+Cliente.lista_cliente.get(conta.getCpf()).getNome());
 		System.out.println("CPF: " + conta.getCpf());
 		System.out.println("Agência: "+ conta.getNumeroAgencia());
 		System.out.println("Tipo de conta: " + conta.getTipoConta().name());		
@@ -225,7 +227,11 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		double taxaTransferencia = taxaSaque + taxaDeposito;
 		double arrecadSaque = lista_saques.size()*taxaSaque;
 		double arrecadDeposito = lista_depositos.size()*taxaDeposito;
+<<<<<<< HEAD
 		double arrecadTransferencia = lista_transferencia.size()/2*taxaTransferencia;
+=======
+		double arrecadTransferencia = lista_transferencia.size()*taxaTransferencia;//possivelmente vai dar problema aqui
+>>>>>>> 3bf93f94fceefec11f4d7d5a85b617d50d46fdf6
 		double total = arrecadSaque + arrecadDeposito + arrecadTransferencia;
 
 		NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
