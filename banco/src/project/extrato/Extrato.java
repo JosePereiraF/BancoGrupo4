@@ -177,21 +177,21 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		
 		System.out.println("Extrato Bancário \t\t Agência: NULL \tCPF: " + conta.getCpf());
 		System.out.println("Nome: ");// Associar nome
-		System.out.println("\nSAQUES: \n");
+		System.out.println("\n-----------SAQUES----------- \n");
 		for(int i = 0 ; i<lista_saques.size();i++) {
 			if(conta.getCpf().equals(lista_saques.get(i).getCpf())) {
 				System.out.println("Data: " + lista_saques.get(i).getHoraSaque()+ "\nValor:\t\t\t R$" + lista_saques.get(i).getValor() + "\n");
 			}
 		}
 		
-		System.out.println("\nDEPOSITOS: \n");
+		System.out.println("\n-----------DEPOSITOS----------- \n");
 		for(int j = 0 ; j<lista_depositos.size();j++) {
 			if(conta.getCpf().equals(lista_depositos.get(j).getCpf())) {
 				System.out.println("Data: " + lista_depositos.get(j).getHora() + "\nValor:\t\t\t R$" + lista_depositos.get(j).getValor()+ "\n");
 			}
 		}
 		
-		System.out.println("\nTRANSFERÊCIAS: \n");
+		System.out.println("\n-----------TRANSFERÊNCIAS----------- \n");
 		for(int k = 0 ; k<lista_transferencia.size();k++) {
 			if(conta.getCpf().equals(lista_transferencia.get(k).getCpf())) {
 				System.out.println("Data: " + lista_transferencia.get(k).getHora() + "\nConta Pagante: "+lista_transferencia.get(k).getOrigem()+ "\nConta Recebedor: "+ lista_transferencia.get(k).getDestino()+ //TODO O lista_transferencia.get(k).getDestino() está retornando o valor do numeroDaConta do pagante ao ivés do recebedor
@@ -199,5 +199,19 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 				
 			}
 		}	
+	}
+	
+	//fazer um metodo para entregar o saldo da conta de forma formatada(opcional)*
+	
+	public void saldo (Conta conta) {
+		System.out.println("-----------Saldo-----------");
+		System.out.println("Dados da conta \n");
+		System.out.println("Nome: "+Cliente.lista_cliente.get(conta.getCpf()).getNome());
+		System.out.println("CPF: " + conta.getCpf());
+		System.out.println("Agência: "+ conta.getNumeroAgencia());
+		System.out.println("Tipo de conta: " + conta.getTipoConta().name());		
+		System.out.println("Número da conta: " + conta.getNumeroDaConta() + "\n");	
+		System.out.println("Saldo: " + conta.getSaldo());
+		
 	}
 }
