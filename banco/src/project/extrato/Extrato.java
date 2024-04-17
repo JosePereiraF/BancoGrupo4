@@ -25,7 +25,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	
 	
-	public void saque(Conta conta) throws ExcecaoTransferencias{
+	public static void saque(Conta conta) throws ExcecaoTransferencias{
 		double valor;
 		double taxa = 0.10;
 		Scanner sc = new Scanner(System.in);
@@ -74,7 +74,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		}
 		
 	}
-	public void deposito(Conta conta) throws ExcecaoTransferencias{
+	public static void deposito(Conta conta) throws ExcecaoTransferencias{
 		
 		double valor;
 		double taxa = 0.10;
@@ -94,7 +94,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 
 	}
 	
-	public void transferencia(Conta contaOrigem ,Conta contaDestino ) throws ExcecaoTransferencias{
+	public static void transferencia(Conta contaOrigem ,Conta contaDestino ) throws ExcecaoTransferencias{
 		double valor;
 		Scanner sc = new Scanner(System.in);
 		double taxa = 0.20;
@@ -177,7 +177,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		}
 
 	}
-	public void mostrar_extrato(Conta conta) {
+	public static void mostrar_extrato(Conta conta) {
 		
 		System.out.println("Extrato Bancário \t\t Agência: NULL \tCPF: " + conta.getCpf());
 		System.out.println("Nome: ");// Associar nome
@@ -207,7 +207,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	//fazer um metodo para entregar o saldo da conta de forma formatada(opcional)*
 	
-	public void saldo (Conta conta) {
+	public static void saldo (Conta conta) {
 		System.out.println("-----------Saldo-----------");
 		System.out.println("Dados da conta \n");
 		//System.out.println("Nome: "+Cliente.lista_cliente.get(conta.getCpf()).getNome());
@@ -221,7 +221,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 
 	//calcular o total de dinheiro adquirido nas taxas e mostrar o valor que é cobrado em cada transferencia;*
 
-	public void totalArrecadado() {
+	public static void totalArrecadado() {
 		double taxaSaque = 0.10;
 		double taxaDeposito = 0.10;
 		double taxaTransferencia = taxaSaque + taxaDeposito;

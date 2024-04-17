@@ -13,7 +13,7 @@ public class Cliente extends Pessoa{
     //criar metodo para criar um cliente e para busca-lo
 	//adcionar os clientes criados dentro do hashmap
 	
-	Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 	public static HashMap<String, Cliente>lista_cliente = new HashMap<>();
 	
 	public Cliente(String nome, String cpf, String senha,String numeroAgencia) {
@@ -33,7 +33,7 @@ public class Cliente extends Pessoa{
 
 
 
-	public void criar_cliente() throws IOException {
+	public static void criar_cliente() throws IOException {
 		//(String nome, String cpf, String senha, LocalDate dataNascimento, String numeroAgencia) 
 		String nomeDigitado;
 		String cpfDigitado;
@@ -61,7 +61,7 @@ public class Cliente extends Pessoa{
 			return lista_cliente.get(key);
 			
 		}
-	public void saveTXT() throws IOException {
+	public static void saveTXT() throws IOException {
 		//InOutUtils.leitor_pessoa("//home/administrador//Documents//usuarios.txt");
 		InOutUtils.escreve_pessoa(lista_pessoa);
 	}
