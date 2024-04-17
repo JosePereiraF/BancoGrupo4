@@ -165,7 +165,18 @@ public abstract class Conta {
 	}
 	public static void saveTXT() throws IOException {
 		InOutUtils.escreve_conta(lista_contas);
+		
 	}
-	
+	public int contarContas (int numeroAgencia) {
+		int numContas = 0;
+		for (Conta conta: listaConta.values()) {
+			if(conta.getNumeroAgencia() == numeroAgencia) {
+				numContas+=1;
+				
+			}
+				
+		}return numContas;
+
+	}
 
 }
