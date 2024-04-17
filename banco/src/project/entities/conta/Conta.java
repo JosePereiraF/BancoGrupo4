@@ -178,5 +178,15 @@ public abstract class Conta {
 		}return numContas;
 
 	}
+	public double calcCapital() {
+        double totalValor = 0;
+
+            for (Conta conta : listaConta.values()) {
+                double saldoConta = conta.getSaldo();
+                totalValor = totalValor + saldoConta;
+
+        }
+            return totalValor;
+    }
 
 }
