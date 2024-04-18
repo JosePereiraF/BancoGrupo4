@@ -167,7 +167,7 @@ public abstract class Conta {
 		InOutUtils.escreveConta(lista_contas);
 		
 	}
-	public int contarContas (int numeroAgencia) {
+	public static int contarContas (int numeroAgencia) {
 		int numContas = 0;
 		for (Conta conta: listaConta.values()) {
 			if(conta.getNumeroAgencia() == numeroAgencia) {
@@ -178,7 +178,7 @@ public abstract class Conta {
 		}return numContas;
 
 	}
-	public double calcCapital() {
+	public static double calcCapital() {
         double totalValor = 0;
 
             for (Conta conta : listaConta.values()) {
