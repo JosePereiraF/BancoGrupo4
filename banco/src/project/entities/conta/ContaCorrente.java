@@ -2,7 +2,6 @@ package project.entities.conta;
 
 import java.time.LocalDate;
 
-
 import project.enums.TipoContaENUM;
 
 public class ContaCorrente extends Conta{

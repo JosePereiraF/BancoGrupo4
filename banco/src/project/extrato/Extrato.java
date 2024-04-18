@@ -19,19 +19,8 @@ import project.excecoes.ExcecaoTransferencias;
 import project.imprimeRelatorio.ImprimeRelatorio;
 
 
-public class Extrato { //Sugestão: Mudar o nome da classe
-
-	Cliente cliente;
-	
-	
-	
-	//possivel problema como estamos trabalhando com um txt e estou pretendendo nao salvar o arquivo
-	//Quando eu puxar o arquivo eu posso ter problemas sobre nao existir o extrato pois as conta
-	//ja estao criadas no banco e isso pode dar problema pq estou pensando em colocar para criar o extrato
-	// quando a conta for criada
-	
-	
-	
+public class Extrato { 
+	Cliente cliente;	
 	public static void saque(Conta conta,ArrayList<Saque> listaSaque ,String path) throws ExcecaoTransferencias{
 		double valor;
 		double taxa = 0.10;
@@ -265,7 +254,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 				
 			}
 				
-		}ImprimeRelatorio.imprimeTotalDeContasBanco(numContas,path);
+		}ImprimeRelatorio.imprimeTotalDeContasBanco(numContas,path,numeroAgencia);
 		return numContas;
 
 	}

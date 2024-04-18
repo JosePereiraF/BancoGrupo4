@@ -1,15 +1,9 @@
 package project;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import project.entities.agencia.Agencia;
-import project.entities.cliente.Cliente;
-import project.entities.conta.Conta;
-import project.entities.conta.ContaCorrente;
-import project.entities.funcionario.Funcionario;
 import project.excecoes.ExcecaoTransferencias;
-import project.extrato.Extrato;
 import project.funcionalidades.InOutUtils;
 
 public class Main {

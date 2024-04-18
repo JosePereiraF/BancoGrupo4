@@ -1,10 +1,5 @@
 package project.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import project.entities.cliente.Cliente;
-
 public abstract class Pessoa {
 	protected String nome;
 	protected String cpf;

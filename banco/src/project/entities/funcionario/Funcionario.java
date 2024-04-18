@@ -1,12 +1,10 @@
 package project.entities.funcionario;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import project.entities.Pessoa;
 import project.enums.CargoENUM;
-import project.funcionalidades.InOutUtils;
 
 public abstract class Funcionario<E> extends Pessoa{
 	protected CargoENUM cargo;

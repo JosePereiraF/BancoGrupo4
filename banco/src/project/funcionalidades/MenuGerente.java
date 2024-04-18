@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import project.entities.conta.Conta;
-import project.entities.conta.ContaCorrente;
 import project.entities.conta.ContaPoupanca;
 import project.entities.funcionario.Gerente;
 import project.excecoes.ExcecaoTransferencias;

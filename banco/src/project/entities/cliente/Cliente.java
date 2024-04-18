@@ -1,11 +1,8 @@
 package project.entities.cliente;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import project.entities.Pessoa;
-import project.funcionalidades.InOutUtils;
 
 public class Cliente extends Pessoa{
 	private String numeroAgencia;
