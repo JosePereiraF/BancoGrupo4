@@ -1,10 +1,22 @@
 package project;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
+import project.entities.Pessoa;
 import project.entities.agencia.Agencia;
+import project.entities.cliente.Cliente;
+import project.entities.conta.Conta;
+import project.entities.conta.ContaCorrente;
+import project.entities.funcionario.Funcionario;
 import project.excecoes.ExcecaoTransferencias;
+import project.extrato.*;
+import project.extrato.Extrato;
+import project.extrato.Saque;
 import project.funcionalidades.InOutUtils;
+import project.funcionalidades.Menu;
 
 public class Main {
 
@@ -18,17 +30,21 @@ public class Main {
 		 transferencia leitor e escritor funcionando
 		 Agencia leitor e escritor funcionando
 		 */
-		InOutUtils.leitorAgencia();
-		InOutUtils.leitorConta();
-		InOutUtils.leitorDeposito();
-		InOutUtils.leitorPessoa();
-		InOutUtils.leitorSaque();
+		Map <String, Conta> listaContas = InOutUtils.leitorConta();
+		ArrayList<Deposito> depositos = InOutUtils.leitorDeposito();
+		Map<String,Pessoa> listaPessoas = InOutUtils.leitorPessoa();
+		ArrayList<Saque> saques = InOutUtils.leitorSaque();
 		InOutUtils.leitorTransferencia();
-		Agencia.consultarAgencias();
-		
-		
+		ArrayList<Transferencia>transferencias = InOutUtils.leitorTransferencia();
+		Scanner sc = new Scanner(System.in);
 
+		Menu.menu(sc, listaPessoas, listaContas, saques, depositos, transferencias);
 
+		InOutUtils.escreveConta(listaContas);
+		InOutUtils.escreveDeposito(depositos);
+		InOutUtils.escrevePessoa(listaPessoas);
+		InOutUtils.escreveSaque(saques);
+		InOutUtils.escreveTransferencia(transferencias);
 
 
 

@@ -19,9 +19,20 @@ import project.excecoes.ExcecaoTransferencias;
 import project.imprimeRelatorio.ImprimeRelatorio;
 
 
-public class Extrato { 
-	Cliente cliente;	
-	public static void saque(Conta conta,ArrayList<Saque> listaSaque ,String path) throws ExcecaoTransferencias{
+public class Extrato { //Sugestão: Mudar o nome da classe
+
+	Cliente cliente;
+	
+	
+	
+	//possivel problema como estamos trabalhando com um txt e estou pretendendo nao salvar o arquivo
+	//Quando eu puxar o arquivo eu posso ter problemas sobre nao existir o extrato pois as conta
+	//ja estao criadas no banco e isso pode dar problema pq estou pensando em colocar para criar o extrato
+	// quando a conta for criada
+	
+	
+	
+	public static void saque(Conta conta,ArrayList<Saque> listaSaque) throws ExcecaoTransferencias{
 		double valor;
 		double taxa = 0.10;
 		Scanner sc = new Scanner(System.in);
@@ -48,7 +59,7 @@ public class Extrato {
 				conta.setSaldo(conta.getSaldo()-(valor+taxa));
 				System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 				System.out.println("Ação realizada com sucesso\n");
-					ImprimeRelatorio.imprimeSaque(saque, conta, path,valor);
+					ImprimeRelatorio.imprimeSaque(saque, conta,valor);
 				}else {
 					System.out.println("Transação cancelada");
 					
@@ -65,13 +76,13 @@ public class Extrato {
 			Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
 			listaSaque.add(saque);
 			conta.setSaldo(conta.getSaldo()-(valor+taxa));
-			ImprimeRelatorio.imprimeSaque(saque, conta, path,valor);
+			ImprimeRelatorio.imprimeSaque(saque, conta,valor);
 			System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 			System.out.println("Ação realizada com sucesso\n");
 		}
 		
 	}
-	public static void deposito(Conta conta,ArrayList<Deposito> listaDeposito, String path ) throws ExcecaoTransferencias{
+	public static void deposito(Conta conta,ArrayList<Deposito> listaDeposito ) throws ExcecaoTransferencias{
 		
 		double valor;
 		double taxa = 0.10;
@@ -86,13 +97,13 @@ public class Extrato {
 		Deposito d = new Deposito(conta,(valor-taxa),LocalDateTime.now(),conta.getCpf(),taxa);
 		conta.setSaldo(conta.getSaldo()+(valor-taxa));
 		listaDeposito.add(d);
-		ImprimeRelatorio.imprimeDeposito(d, conta, path,valor);
+		ImprimeRelatorio.imprimeDeposito(d, conta,valor);
 		System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 		System.out.println("Ação realizada com sucesso\n");
 
 	}
 	
-	public static void transferencia(Conta contaOrigem ,Conta contaDestino,ArrayList<Transferencia> listaTransferencia, Map<String, Pessoa> listaPessoa,Scanner sc,String path ) throws ExcecaoTransferencias{
+	public static void transferencia(Conta contaOrigem ,Conta contaDestino,ArrayList<Transferencia> listaTransferencia, Map<String, Pessoa> listaPessoa,Scanner sc ) throws ExcecaoTransferencias{
 		double valor;
 		double taxa = 0.20;
 	
@@ -115,7 +126,7 @@ public class Extrato {
 					listaTransferencia.add(destino);
 					contaOrigem.setSaldo(contaOrigem.getSaldo()-(valor+taxa));
 					contaDestino.setSaldo(contaDestino.getSaldo()+valor);
-					ImprimeRelatorio.imprimeTransferencia(listaPessoa, contaOrigem, contaDestino, origem, valor,path);
+					ImprimeRelatorio.imprimeTransferencia(listaPessoa, contaOrigem, contaDestino, origem, valor);
 					System.out.println("Ação realizada com sucesso");
 					System.out.println("Dados do pagador \n");
 					System.out.println("Nome: "+listaPessoa.get(contaOrigem.getCpf()).getNome());//Inserir nome 
@@ -150,7 +161,7 @@ public class Extrato {
 		contaOrigem.setSaldo(contaOrigem.getSaldo()-(valor+taxa));
 		contaDestino.setSaldo(contaDestino.getSaldo()+valor);
 		
-		ImprimeRelatorio.imprimeTransferencia(listaPessoa, contaOrigem, contaDestino, origem, valor,path);
+		ImprimeRelatorio.imprimeTransferencia(listaPessoa, contaOrigem, contaDestino, origem, valor);
 		System.out.println("Ação realizada com sucesso");
 		System.out.println("Dados do pagador \n");
 		System.out.println("Nome: "+listaPessoa.get(contaOrigem.getCpf()).getNome());//Inserir nome 
@@ -179,7 +190,7 @@ public class Extrato {
 	
 	//fazer um metodo para entregar o saldo da conta de forma formatada(opcional)*
 	
-	public static void saldo (Conta conta,Map<String, Pessoa> listaPessoa, String path) {
+	public static void saldo (Conta conta,Map<String, Pessoa> listaPessoa) {
 		System.out.println("-----------Saldo-----------");
 		System.out.println("Dados da conta \n");
 		System.out.println("Nome: "+listaPessoa.get(conta.getCpf()).getNome());
@@ -188,12 +199,12 @@ public class Extrato {
 		System.out.println("Tipo de conta: " + conta.getTipoConta().name());		
 		System.out.println("Número da conta: " + conta.getNumeroDaConta() + "\n");	
 		System.out.println("Saldo: " + conta.getSaldo());
-		ImprimeRelatorio.imprimeSaldo(conta ,listaPessoa,path);
+		ImprimeRelatorio.imprimeSaldo(conta ,listaPessoa);
 	}
 
 	//calcular o total de dinheiro adquirido nas taxas e mostrar o valor que é cobrado em cada transferencia;*
 
-	public static void totalArrecadado(ArrayList<Saque> listaSaque,ArrayList<Deposito> listaDeposito,ArrayList<Transferencia> listaTransferencia,String path) {
+	public static void totalArrecadado(ArrayList<Saque> listaSaque,ArrayList<Deposito> listaDeposito,ArrayList<Transferencia> listaTransferencia) {
 		double taxaSaque = 0.10;
 		double taxaDeposito = 0.10;
 		double taxaTransferencia = taxaSaque + taxaDeposito;
@@ -211,9 +222,9 @@ public class Extrato {
 
 		System.out.println("Com as taxas de: \n" + saqueFormatada + " para saques \n" + depositoFormatada + " para Depósitos \n" + transferenciaFormatada + " para Transferências,");
 		System.out.println("\n e com: " + listaSaque.size() + " Saques, " + listaDeposito.size() + " Depositos e " +  listaTransferencia.size() + " Transferências,\n foi arrecadado o total de " + totalFormatada + " atualmente.");
-		ImprimeRelatorio.imprimeTotalArrecadado(saqueFormatada,depositoFormatada,transferenciaFormatada,listaSaque.size(),listaDeposito.size(),listaTransferencia.size(),totalFormatada,path);
+		ImprimeRelatorio.imprimeTotalArrecadado(saqueFormatada,depositoFormatada,transferenciaFormatada,listaSaque.size(),listaDeposito.size(),listaTransferencia.size(),totalFormatada);
 	}
-	public static void relatorioClientes(Map <String, Pessoa> listaPessoa,Map <String, Conta> listaConta,String path) {
+	public static void relatorioClientes(Map <String, Pessoa> listaPessoa,Map <String, Conta> listaConta) {
 		ArrayList<Conta> contasAtuais = new ArrayList<>(listaConta.values());
 		ArrayList<String> relatorio = new ArrayList<>();
 		relatorio.add("-----------RELATÓRIO DE CLIENTES-----------");
@@ -236,7 +247,7 @@ public class Extrato {
 			} else {
 				System.out.println("Nome da conta de CPF: " + cpf + " não encontrado.");
 			}
-			ImprimeRelatorio.relatorioClientes(relatorio,path);
+			ImprimeRelatorio.relatorioClientes(relatorio);
 		}
 	
 		Collections.sort(relatorio);
@@ -246,7 +257,7 @@ public class Extrato {
 	}
 
 
-	public int contarContas (int numeroAgencia , Map <String, Conta> listaConta,String path) {
+	public static int contarContas (int numeroAgencia , Map <String, Conta> listaConta) {
 		int numContas = 0;
 		for (Conta conta: listaConta.values()) {
 			if(conta.getNumeroAgencia() == numeroAgencia) {
@@ -254,11 +265,11 @@ public class Extrato {
 				
 			}
 				
-		}ImprimeRelatorio.imprimeTotalDeContasBanco(numContas,path,numeroAgencia);
+		}ImprimeRelatorio.imprimeTotalDeContasBanco(numContas);
 		return numContas;
 
 	}
-	public double calcCapital(Map <String, Conta> listaConta,String path) {
+	public static double calcCapital(Map <String, Conta> listaConta) {
         double totalValor = 0;
 
             for (Conta conta : listaConta.values()) {
@@ -266,12 +277,12 @@ public class Extrato {
                 totalValor = totalValor + saldoConta;
 
         }
-		ImprimeRelatorio.imprimeCalcCapital(totalValor, path);
+		ImprimeRelatorio.imprimeCalcCapital(totalValor);
             return totalValor;
     }
 
 
-	public static void calcularRendimento(Scanner sc, String path) {
+	public static void calcularRendimento(Scanner sc) {
 		LocalDate hoje = LocalDate.now();
 		LocalDate dataFinal = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -346,7 +357,7 @@ public class Extrato {
 		System.out.println("Com um juros de " + jurosMensal + "% ao mês.\n" + "Com um investimento inicial de \tR$"
 				+ valorSimulado + "\nVocê terá um retorno de \tR$" + jurosGanhos + "\nTendo um total de \t\tR$"
 				+ (valorSimulado + jurosGanhos));
-			ImprimeRelatorio.imprimeCalcRendimentos(hoje, dataFinal,jurosMensal,jurosGanhos,valorSimulado ,path);
+			ImprimeRelatorio.imprimeCalcRendimentos(hoje, dataFinal,jurosMensal,jurosGanhos,valorSimulado);
 	}
 
 

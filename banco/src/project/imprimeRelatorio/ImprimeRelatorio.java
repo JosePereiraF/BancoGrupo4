@@ -16,11 +16,12 @@ import project.extrato.Transferencia;
 
 public class ImprimeRelatorio {
 
-    public static void imprimeSaque(Saque saque, Conta conta,String path,double valor){ //Imprime o comprovante do saque
+    public static void imprimeSaque(Saque saque, Conta conta,double valor){
             Double valorSaque = valor;
             Double valorTaxa = saque.getTaxa();
             Double valorSacado = valorSaque-valorTaxa;
             Double saldoConta = conta.getSaldo();
+            String path = "//home/administrador//Documents//realizaSaque.txt";
             try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
                 buffWrite.append("----------------SAQUE----------------");
                 buffWrite.newLine();
@@ -34,11 +35,12 @@ public class ImprimeRelatorio {
        
     }
 
-    public static void imprimeDeposito(Deposito deposito, Conta conta,String path, double valor){ //Imprime o comprovante do depósito
+    public static void imprimeDeposito(Deposito deposito, Conta conta, double valor){
         Double valorDeposito = valor;
         Double valorTaxa = deposito.getTaxa();
         Double valorDepositado = valorDeposito-valorTaxa;
         Double saldoConta = conta.getSaldo();
+        String path = "//home/administrador//Documents//realizaDeposito.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------DEPOSITO----------------");
             buffWrite.newLine();
@@ -51,11 +53,11 @@ public class ImprimeRelatorio {
         }
    
     }//listaPessoa, contaOrigem, contaDestino, origem, valor,path
-    public static void imprimeTransferencia(Map <String, Pessoa> listaPessoa,Conta contaOrigem, Conta contaDestino,Transferencia transferencia,double valor,String path){ 
-        Double valorTransferencia = valor;//Imprime o comprovante da transfência
+    public static void imprimeTransferencia(Map <String, Pessoa> listaPessoa,Conta contaOrigem, Conta contaDestino,Transferencia transferencia,double valor){
+        Double valorTransferencia = valor;
         Double valorTaxa = transferencia.getTaxa();
         Double valorDescontado = valorTransferencia+valorTaxa;
-
+        String path = "//home/administrador//Documents//realizatranferencia.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------Transferencia----------------");
             buffWrite.newLine();
@@ -80,8 +82,9 @@ public class ImprimeRelatorio {
         }
       
     }
-    public static void imprimeSaldo(Conta conta,Map<String, Pessoa> listaPessoa, String path){
-//Iprime o saldo da pessoa
+    public static void imprimeSaldo(Conta conta,Map<String, Pessoa> listaPessoa){
+
+        String path = "//home/administrador//Documents//imprimesaldo.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------SALDO----------------");
             buffWrite.newLine();
@@ -99,24 +102,25 @@ public class ImprimeRelatorio {
     }
 
     public static void imprimeTotalArrecadado(String saqueFormatada, String depositoFormatada,
-            String transferenciaFormatada, int quantSac, int quantDeposito, int quantTransferencia, String totalFormatada,String path) {
-                
+            String transferenciaFormatada, int quantSac, int quantDeposito, int quantTransferencia, String totalFormatada) {
+                String path = "//home/administrador//Documents//imprimetotalArrecadado.txt";
                     try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
                         buffWrite.append("----------------TOTAL ARRECADADO----------------");
                         buffWrite.newLine();
-                        buffWrite.append("Dados de arrecadamento da taxa\n");
+                        buffWrite.append("Dados de arrecadamento \n");
                         buffWrite.append("Saque:              "+"foram feitas "+quantSac+" no valor de: "+saqueFormatada);
                         buffWrite.append("Deposito:              "+"foram feitas "+quantDeposito+" no valor de: "+depositoFormatada);
                         buffWrite.append("O banco arrecadou o total de "+totalFormatada);
                        
                     } catch (IOException e) {
-                        System.err.println("Erro ao realizar o total arrecado: " + e.getMessage());
+                        System.err.println("Erro ao realizar o saldo: " + e.getMessage());
                     }
     }
 
     public static void imprimeCalcRendimentos(LocalDate hoje, LocalDate dataFinal, double jurosMensal,
-            double jurosGanhos, double valorSimulado, String path) { //IMprime a simulação do rendimento da poupança
+            double jurosGanhos, double valorSimulado) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String path = "//home/administrador//Documents//imprimecalcRendimentos.txt";
                 try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
                     buffWrite.append("----------------SIMULAÇÃO----------------");
                     buffWrite.newLine();
@@ -127,60 +131,70 @@ public class ImprimeRelatorio {
                     buffWrite.append("Você terá um retorno de \tR$     " + jurosGanhos );
                     buffWrite.append("Tendo um total de R$             " + (valorSimulado + jurosGanhos) );
                 } catch (IOException e) {
-                    System.err.println("Erro ao realizar a simulação de rendimento: " + e.getMessage());
+                    System.err.println("Erro ao realizar o deposito: " + e.getMessage());
                 }
     }
-    public static void imprimeCalcCapital(double valorTotal, String path){// Imprime o cálculo do capital do banco 
-        
+    public static void imprimeCalcCapital(double valorTotal){
+        String path = "//home/administrador//Documents//imprimeCalcCapital.txt";
             try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------CAPITAL DO BANCO----------------");
             buffWrite.newLine();
             buffWrite.append("O banco Serratec tem o capital de "+ valorTotal);
             } catch (IOException e) {
-            System.err.println("Erro ao realizar o capital do banco: " + e.getMessage());
+            System.err.println("Erro ao realizar o deposito: " + e.getMessage());
             }
-    }//imprime total de contas
-    public static void imprimeTotalDeContasBanco(int numContas,String path,int numeroDaAgencia){
+    }
+    public static void imprimeTotalDeContasBanco(int numContas){
+        String path = "//home/administrador//Documents//imprimeTotalDeContasBanco.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------TOTAL DE CONTAS DO BANCO----------------");
             buffWrite.newLine();
-            buffWrite.append("O banco Serratec tem "+ numContas+" registradas na agência " + numeroDaAgencia);
+            buffWrite.append("O banco Serratec tem "+ numContas+" registradas");
             } catch (IOException e) {
-            System.err.println("Erro ao realizar o total de contas do banco: " + e.getMessage());
+            System.err.println("Erro ao realizar o deposito: " + e.getMessage());
             }
 
-    }//imprime o relatório
-    public static void relatorioClientes(ArrayList<String> relatorio, String path){
-       
+    }
+    public static void relatorioClientes(ArrayList<String> relatorio){
+        String path = "//home/administrador//Documents//relatorioClientes.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             for (String relatorio1 : relatorio) {
                 buffWrite.append(relatorio1);
                             } 
             } catch (IOException e) {
-                System.err.println("Erro ao realizar o relatório dos clientes: " + e.getMessage());
+                System.err.println("Erro ao realizar o deposito: " + e.getMessage());
         }
-    }//imprime Extrato
-    public static void imprimeExtrato(ArrayList<Saque> saques,ArrayList<Deposito> depositos,ArrayList<Transferencia> transferencias, String path ){
+    }
+    public static void imprimeExtrato(ArrayList<Saque> saques,ArrayList<Deposito> depositos,ArrayList<Transferencia> transferencias,Conta conta ){
 
-        
+        String path = "//home/administrador//Documents//imprimeExtrato.txt";
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter (path))){
             buffWrite.append("----------------SAQUES----------------");
             buffWrite.newLine();
            for(Saque saque : saques){
-            buffWrite.append(saque.toString());
+            if(saque.getCpf().equalsIgnoreCase(conta.getCpf())){
+
+                buffWrite.append(saque.toString());
+            }
            }
            buffWrite.append("----------------DEPOSITOS----------------");
            buffWrite.newLine();
           for(Deposito deposito : depositos){
-           buffWrite.append(deposito.toString());
+              if(deposito.getCpf().equalsIgnoreCase(conta.getCpf())){
+               buffWrite.append(deposito.toString());
+
+           }
           }
           buffWrite.append("----------------TANSFERENCIA----------------");
            buffWrite.newLine();
           for(Transferencia transferencia : transferencias){
-           buffWrite.append(transferencia.toString());
+              if(transferencia.getOrigem().getCpf().equalsIgnoreCase(conta.getCpf())){
+               buffWrite.append(transferencia.toString());
+
+           }
           }
         } catch (IOException e) {
-            System.err.println("Erro ao realizar a impressão do extrato: " + e.getMessage());
+            System.err.println("Erro ao realizar o deposito: " + e.getMessage());
         }
     }
         
