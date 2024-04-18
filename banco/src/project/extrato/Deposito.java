@@ -53,8 +53,8 @@ public class Deposito {
 	}
 	@Override
 	public String toString() {
-		return "Deposito [destino=" + destino + ", valor=" + valor + ", hora=" + hora + ", cpf=" + cpf + ", taxa="
-				+ taxa + "]";
+		//Conta destino, double valor, LocalDateTime hora, String cpf, double taxa)
+		return destino+";"+valor+";"+hora+";"+cpf+";"+taxa;
 	}
 	
 	

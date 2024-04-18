@@ -3,18 +3,47 @@ package project;
 import java.io.IOException;
 import java.util.Scanner;
 
+import project.entities.agencia.Agencia;
+import project.entities.cliente.Cliente;
 import project.entities.conta.Conta;
 import project.entities.conta.ContaCorrente;
+import project.entities.funcionario.Funcionario;
 import project.excecoes.ExcecaoTransferencias;
 import project.extrato.Extrato;
+import project.funcionalidades.InOutUtils;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ExcecaoTransferencias {
+		/*
+		 Funcionario leitor e escritor funcionando
+		 Contas leitor e escritor funcionando
+		 Cliente leitor e escritor funcionando
+		 Saque leitor e escritor funcionando
+		 Deposito leitor e escritor funcionando
+		 transferencia leitor e escritor funcionando
+		 Agencia leitor e escritor funcionando
+		 */
+		InOutUtils.leitorAgencia();
+		InOutUtils.leitorContas();
+		InOutUtils.leitorDeposito();
+		InOutUtils.leitorPessoa();
+		InOutUtils.leitorSaque();
+		InOutUtils.leitorTransferencia();
+		Agencia.consultarAgencias();
+		
+		
+
+
+
+
+
+
+
 
 	}
 
-	public void teste() throws ExcecaoTransferencias {
+	public void teste() throws ExcecaoTransferencias, IOException {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -45,7 +74,7 @@ public class Main {
 				break;
 
 			case 4:
-				e.transferencia(conta, conta);
+				Extrato.transferencia(conta, conta);
 				break;
 
 			case 5:

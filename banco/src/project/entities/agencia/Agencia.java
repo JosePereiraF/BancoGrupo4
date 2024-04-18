@@ -1,14 +1,17 @@
 package project.entities.agencia;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import project.funcionalidades.InOutUtils;
 
 public class Agencia {
 	private String nome;
 	private int numeroAgencia;
 	
-	public HashMap<Integer,Agencia> Lista_Agencias = new HashMap<>();
-	Scanner sc = new Scanner(System.in);
+	public static HashMap<Integer,Agencia> Lista_Agencias = new HashMap<>();
+	static Scanner sc = new Scanner(System.in);
 	
 	public Agencia(String nome, int numeroAgencia) {
 		super();
@@ -35,11 +38,12 @@ public class Agencia {
 	
 	@Override
 	public String toString() {
-		return "Agencia [nome=" + nome + ", numeroAgencia=" + numeroAgencia + "]";
+		
+		return nome+";"+numeroAgencia;
 	}
 
 	//nesse caso, não vai ter uma key pois ela em sí vai ser usado como chave.
-	public void criaAgencia() {
+	public static  void criaAgencia() throws IOException {
 		int nAgencia;
 		String nomeDigitado;
 		
@@ -56,12 +60,13 @@ public class Agencia {
 			
 				Agencia agencia = new Agencia(nomeDigitado, nAgencia);
 				Lista_Agencias.put(nAgencia, agencia);
+				InOutUtils.escreveAgencia(agencia);
 				break;
 			}
 		}
 	}
 	//consultar Agencias adicionadas no Hashmap
-	public void consultarAgencias() {
+	public static void consultarAgencias() {
         System.out.println("Agências cadastradas:");
 
         for (Agencia agencia : Lista_Agencias.values()) {

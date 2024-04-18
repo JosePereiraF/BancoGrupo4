@@ -164,7 +164,7 @@ public abstract class Conta {
 		
 	}
 	public static void saveTXT() throws IOException {
-		InOutUtils.escreve_conta(lista_contas);
+		InOutUtils.escreveConta(lista_contas);
 		
 	}
 	public int contarContas (int numeroAgencia) {

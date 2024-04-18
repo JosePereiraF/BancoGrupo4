@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import project.entities.conta.Conta;
 
 public class Transferencia {
-	private int origem;
-	private int destino;
+	private Conta origem;
+	private Conta destino;
 	private double valor;
 	private LocalDateTime hora;
 	private String cpf;
 	private double taxa;
-	public Transferencia(int origem, int destino, double valor, LocalDateTime hora, String cpf, double taxa) {
+	public Transferencia(Conta origem, Conta destino, double valor, LocalDateTime hora, String cpf, double taxa) {
 		super();
 		this.origem = origem;
 		this.destino = destino;
@@ -27,16 +27,16 @@ public class Transferencia {
 	}
 
 
-	public int getOrigem() {
+	public Conta getOrigem() {
 		return origem;
 	}
-	public void setOrigem(int origem) {
+	public void setOrigem(Conta origem) {
 		this.origem = origem;
 	}
-	public int getDestino() {
+	public Conta getDestino() {
 		return destino;
 	}
-	public void setDestino(int destino) {
+	public void setDestino(Conta destino) {
 		this.destino = destino;
 	}
 	public double getValor() {
@@ -67,8 +67,8 @@ public class Transferencia {
 
 	@Override
 	public String toString() {
-		return "Transferencia [origem=" + origem + ", destino=" + destino + ", valor=" + valor + ", hora=" + hora
-				+ ", cpf=" + cpf + ", taxa=" + taxa + "]";
+		//int origem, int destino, double valor, LocalDateTime hora, String cpf, double taxa
+		return origem+";"+destino+";"+valor+";"+hora+";"+cpf+";"+taxa;
 	}
 
 	

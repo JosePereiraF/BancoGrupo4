@@ -52,8 +52,8 @@ public class Saque {
 	
 	@Override
 	public String toString() {
-		return "Saque [saque=" + saque + ", valor=" + valor + ", horaSaque=" + horaSaque + ", cpf=" + cpf + ", taxa="
-				+ taxa + "]";
+		//Conta saque, double valor, LocalDateTime horaSaque, String cpf, double taxa
+		return saque +";"+valor+";"+horaSaque+";"+cpf+";"+taxa;
 	}
 	
 	

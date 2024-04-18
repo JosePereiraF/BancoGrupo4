@@ -119,7 +119,7 @@ public abstract class Funcionario<E> extends Pessoa{
 		}
 	}
 	public static void saveTXT() throws IOException {
-		InOutUtils.escreve_pessoa(lista_pessoa);
+		InOutUtils.escrevePessoa(lista_pessoa);
 	}
 	
 }

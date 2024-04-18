@@ -1,5 +1,6 @@
 package project.extrato;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 import project.entities.cliente.Cliente;
 import project.entities.conta.Conta;
 import project.excecoes.ExcecaoTransferencias;
+import project.funcionalidades.InOutUtils;
 
 public class Extrato { //Sugestão: Mudar o nome da classe
 
@@ -25,7 +27,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	
 	
-	public void saque(Conta conta) throws ExcecaoTransferencias{
+	public static void saque(Conta conta) throws ExcecaoTransferencias, IOException{
 		double valor;
 		double taxa = 0.10;
 		Scanner sc = new Scanner(System.in);
@@ -50,6 +52,8 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 				Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
 				lista_saques.add(saque);
 				conta.setSaldo(conta.getSaldo()-(valor+taxa));
+				Conta.saveTXT();
+				InOutUtils.escreveSaque(saque);
 				System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 				System.out.println("Ação realizada com sucesso\n");
 					
@@ -69,12 +73,14 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 			Saque saque = new Saque(conta,-(valor+taxa),LocalDateTime.now(),conta.getCpf(),taxa);
 			lista_saques.add(saque);
 			conta.setSaldo(conta.getSaldo()-(valor+taxa));
+			Conta.saveTXT();
+			InOutUtils.escreveSaque(saque);
 			System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 			System.out.println("Ação realizada com sucesso\n");
 		}
 		
 	}
-	public void deposito(Conta conta) throws ExcecaoTransferencias{
+	public static void deposito(Conta conta) throws ExcecaoTransferencias, IOException{
 		
 		double valor;
 		double taxa = 0.10;
@@ -89,12 +95,14 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		Deposito d = new Deposito(conta,(valor-taxa),LocalDateTime.now(),conta.getCpf(),taxa);
 		conta.setSaldo(conta.getSaldo()+(valor-taxa));
 		lista_depositos.add(d);
+		Conta.saveTXT();
+		InOutUtils.escreveDeposito(d);
 		System.out.println("Saldo: \t\t\t R$" + conta.getSaldo());
 		System.out.println("Ação realizada com sucesso\n");
 
 	}
 	
-	public void transferencia(Conta contaOrigem ,Conta contaDestino ) throws ExcecaoTransferencias{
+	public static void transferencia(Conta contaOrigem ,Conta contaDestino ) throws ExcecaoTransferencias, IOException{
 		double valor;
 		Scanner sc = new Scanner(System.in);
 		double taxa = 0.20;
@@ -112,13 +120,15 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 				String escolha = sc.next();
 				if(escolha.equalsIgnoreCase("s")) {
 					
-					Transferencia origem = new Transferencia(contaOrigem.getNumeroDaConta(),contaDestino.getNumeroDaConta(),-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
-					Transferencia destino = new Transferencia(contaDestino.getNumeroDaConta(),contaOrigem.getNumeroDaConta(),+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
+					Transferencia origem = new Transferencia(contaOrigem,contaDestino,-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
+					Transferencia destino = new Transferencia(contaDestino,contaOrigem,+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
+					InOutUtils.escreveTransferencia(origem);//*****************************
+					InOutUtils.escreveTransferencia(destino);
 					lista_transferencia.add(origem);
 					lista_transferencia.add(destino);
 					contaOrigem.setSaldo(contaOrigem.getSaldo()-(valor+taxa));
 					contaDestino.setSaldo(contaDestino.getSaldo()+valor);
-					
+					Conta.saveTXT();
 					System.out.println("Ação realizada com sucesso");
 					System.out.println("Dados do pagador \n");
 					//System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
@@ -128,7 +138,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 					System.out.println("Número da conta: " + contaOrigem.getNumeroDaConta() + "\n");		
 					
 					System.out.println("Dados do recebedor \n");
-					System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
+					//System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
 					System.out.println("CPF: " + contaDestino.getCpf());
 					System.out.println("Agência: "+contaDestino.getNumeroAgencia());//Inserir Agência	
 					System.out.println("Tipo de conta: " + contaDestino.getTipoConta().name());		
@@ -146,13 +156,16 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 			}
 		}else {
 			
-		Transferencia origem = new Transferencia(contaOrigem.getNumeroDaConta(),contaDestino.getNumeroDaConta(),-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
-		Transferencia destino = new Transferencia(contaDestino.getNumeroDaConta(),contaOrigem.getNumeroDaConta(),+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
+		Transferencia origem = new Transferencia(contaOrigem,contaDestino,-(valor+taxa),LocalDateTime.now(),contaOrigem.getCpf(),taxa);
+		Transferencia destino = new Transferencia(contaDestino,contaOrigem,+valor,LocalDateTime.now(),contaDestino.getCpf(),0);
 		lista_transferencia.add(origem);
 		lista_transferencia.add(destino);
+		InOutUtils.escreveTransferencia(origem);//*****************************
+		InOutUtils.escreveTransferencia(destino);
 		contaOrigem.setSaldo(contaOrigem.getSaldo()-(valor+taxa));
 		contaDestino.setSaldo(contaDestino.getSaldo()+valor);
 		
+		Conta.saveTXT();//*************** se as contas salvarem duplicados esse é o problema *************** 
 		System.out.println("Ação realizada com sucesso");
 		System.out.println("Dados do pagador \n");
 		//System.out.println("Nome: "+Cliente.lista_cliente.get(contaOrigem.getCpf()).getNome());//Inserir nome 
@@ -162,7 +175,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		System.out.println("Número da conta: " + contaOrigem.getNumeroDaConta() + "\n");		
 		
 		System.out.println("Dados do recebedor \n");
-		System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
+		//System.out.println("Nome: "+Cliente.lista_cliente.get(contaDestino.getCpf()));//Inserir nome 
 		System.out.println("CPF: " + contaDestino.getCpf());
 		System.out.println("Agência: "+contaDestino.getNumeroAgencia());//Inserir Agência	
 		System.out.println("Tipo de conta: " + contaDestino.getTipoConta().name());		
@@ -177,7 +190,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 		}
 
 	}
-	public void mostrar_extrato(Conta conta) {
+	public static void mostrar_extrato(Conta conta) {
 		
 		System.out.println("Extrato Bancário \t\t Agência: NULL \tCPF: " + conta.getCpf());
 		System.out.println("Nome: ");// Associar nome
@@ -207,7 +220,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 	
 	//fazer um metodo para entregar o saldo da conta de forma formatada(opcional)*
 	
-	public void saldo (Conta conta) {
+	public static void saldo (Conta conta) {
 		System.out.println("-----------Saldo-----------");
 		System.out.println("Dados da conta \n");
 		//System.out.println("Nome: "+Cliente.lista_cliente.get(conta.getCpf()).getNome());
@@ -221,7 +234,7 @@ public class Extrato { //Sugestão: Mudar o nome da classe
 
 	//calcular o total de dinheiro adquirido nas taxas e mostrar o valor que é cobrado em cada transferencia;*
 
-	public void totalArrecadado() {
+	public static void totalArrecadado() {
 		double taxaSaque = 0.10;
 		double taxaDeposito = 0.10;
 		double taxaTransferencia = taxaSaque + taxaDeposito;
