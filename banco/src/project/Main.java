@@ -25,7 +25,7 @@ public class Main {
 		 Agencia leitor e escritor funcionando
 		 */
 		InOutUtils.leitorAgencia();
-		InOutUtils.leitorContas();
+		InOutUtils.leitorConta();
 		InOutUtils.leitorDeposito();
 		InOutUtils.leitorPessoa();
 		InOutUtils.leitorSaque();
