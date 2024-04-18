@@ -99,5 +99,15 @@ public class Main {
 		imprimeLinha();
 
 	}
+	
+
+
+
+//	try {
+//		contap.calcularRendimento();			
+//	} catch (Exception e) {
+//		System.err.println("Você digitou o dia errado em relação ao mês!");
+//	}
+
 
 }
